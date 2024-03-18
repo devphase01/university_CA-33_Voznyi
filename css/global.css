@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  font-family: 'Arial Narrow Bold', sans-serif;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input,
+button,
+select,
+textarea {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0.4em;
+  vertical-align: middle;
+  box-sizing: border-box;
+  border-radius: 0;
+  outline: none;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Viariables */
+
+:root {
+  --orange-color: #f18954;
+  --white-color: #fff;
+}
+
+/* General classes */
+
+.container {
+  display: block;
+  padding-left: 120px;
+  padding-right: 120px;
+}
