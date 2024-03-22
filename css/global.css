@@ -66,3 +66,24 @@ input[type="reset"] {
   padding-left: 120px;
   padding-right: 120px;
 }
+
+@media screen and (max-width: 1200px) {
+  .container {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media screen and (max-width: 970px) {
+  .container {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

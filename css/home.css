@@ -8,14 +8,14 @@
 .hero-content {
   display: flex;
   justify-content: space-between;
-  margin-top: 200px;
+  margin-top: 300px;
 }
 
 .hero-content > img[alt="hero-doctor"] {
   width: 100%;
   max-width: 512px;
   max-height: 512px;
-  
+
   margin-top: -100px;
   border-radius: 50%;
   background-color: var(--orange-color);
@@ -45,4 +45,66 @@
   border-radius: 8px 4px;
   background-color: var(--orange-color);
   color: var(--white-color);
+}
+
+@media screen and (max-width: 1140px) {
+  .hero-content > img[alt="hero-doctor"] {
+    width: 100%;
+    max-width: 350px;
+    max-height: 350px;
+  }
+}
+
+@media screen and (max-width: 857px) and (min-width: 550px) {
+  .hero-content {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-content > article > button {
+    align-self: center;
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 857px) {
+  .hero-section {
+    height: 100%;
+    padding-bottom: 20px;
+  }
+
+  .hero-content > img[alt="hero-doctor"] {
+    display: none;
+  }
+
+  .hero-content {
+    margin-top: 100px;
+  }
+
+  .hero-content > article > h1 {
+    font-size: 24px;
+  }
+
+  .hero-content > article > p {
+    font-size: 14px;
+  }
+
+  .hero-content > article > button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .hero-content > article > h1 {
+    font-size: 24px;
+  }
+
+  .hero-content > article > p {
+    font-size: 14px;
+  }
+
+  .hero-content > article > button {
+    font-size: 14px;
+  }
 }
