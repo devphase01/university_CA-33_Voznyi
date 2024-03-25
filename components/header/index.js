@@ -17,17 +17,17 @@ class Header extends HTMLElement {
         <h2>Mediserv</h2>
         <button id="burgerMenu" aria-label="Toggle menu">☰</button>
         <nav id="navbar">
-          <a class="nav-link" href="${rootPath}index.html">Home</a>
-          <a class="nav-link" href="${rootPath}pages/about.html">About</a>
+          <a class="nav-link" href="${rootPath}/index.html">Home</a>
+          <a class="nav-link" href="${rootPath}/pages/about.html">About</a>
           <div class="dropdown">
             <a class="nav-link dropdown-item">Services</a>
             <div class="dropdown-content">
-              <a href="${rootPath}pages/services/diagnostics" class="nav-link">Diagnositics</a>
-              <a href="${rootPath}pages/services/healthcare" class="nav-link">Healthcare</a>
+              <a href="${rootPath}/pages/services/diagnostics.html" class="nav-link">Diagnositics</a>
+              <a href="${rootPath}/pages/services/healthcare.html" class="nav-link">Healthcare</a>
               <a href="" class="nav-link">Soon</a>
             </div>
           </div>
-          <a class="nav-link" href="${rootPath}pages/contact.html">Contact</a>
+          <a class="nav-link" href="${rootPath}/pages/contact.html">Contact</a>
         </nav>
       </header>
     `;
@@ -60,6 +60,10 @@ class Header extends HTMLElement {
 		if (!rootPath) {
 			throw new Error('header-component requires `rootPath` attribute');
 		}
+
+    if (rootPath.endsWith('/')) {
+      rootPath = rootPath.slice(0, rootPath.lastIndexOf('/'));
+    }
 
 		return rootPath.toLowerCase();
 	}
@@ -263,9 +267,3 @@ const styles = `
 `;
 
 customElements.define('header-component', Header);
-
-function normalizePath(path) {
-	let result;
-
-	return result.toLowerCase();
-}
