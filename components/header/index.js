@@ -17,10 +17,17 @@ class Header extends HTMLElement {
         <h2>Mediserv</h2>
         <button id="burgerMenu" aria-label="Toggle menu">☰</button>
         <nav id="navbar">
-          <a href="${rootPath}index.html">Home</a>
-          <a href="${rootPath}pages/about.html">About</a>
-          <a href="${rootPath}pages/services.html">Services</a>
-          <a href="${rootPath}pages/contact.html">Contact</a>
+          <a class="nav-link" href="${rootPath}index.html">Home</a>
+          <a class="nav-link" href="${rootPath}pages/about.html">About</a>
+          <div class="dropdown">
+            <a class="nav-link">Services</a>
+            <div class="dropdown-content">
+              <a href="${rootPath}pages/services/diagnostics" class="nav-link">Diagnositics</a>
+              <a href="${rootPath}pages/services/healthcare" class="nav-link">Healthcare</a>
+              <a href="" class="nav-link">Soon</a>
+            </div>
+          </div>
+          <a class="nav-link" href="${rootPath}pages/contact.html">Contact</a>
         </nav>
       </header>
     `;
@@ -93,12 +100,57 @@ const styles = `
 
     #navbar {
       display: flex;
+      align-items: center;
       gap: 2rem;
     }
     
-    #navbar > a {
+    .nav-link {
+      padding: 8px 16px;
       color: black;
       text-decoration: none;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: #f18954;
+    }
+
+    .dropdown, dropdown-submenu {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown:hover > .nav-link {
+      color: #f18954;
+    }
+
+    .dropdown-content {
+      width: 160px;
+
+      display: none;
+
+      position: absolute;
+      top: 160%;
+      left: 15%;
+      z-index: 1;
+
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: black;
+      text-decoration: none;
+      padding: 12px 16px;
+    }
+
+    .dropdown-content a:hover {
+      color: white;
+      background-color: #f18954;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
     }
 
     @media screen and (max-width: 857px) {
