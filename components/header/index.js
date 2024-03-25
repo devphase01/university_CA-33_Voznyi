@@ -1,18 +1,18 @@
 class Header extends HTMLElement {
-  constructor() {
-    super();
+	constructor() {
+		super();
 
-    this.animationTags = {
-      NAVBAR_SHOW: 'show',
-      BURGER_EXPAND: 'expanded',
-    };
-  }
+		this.animationTags = {
+			NAVBAR_SHOW: 'show',
+			BURGER_EXPAND: 'expanded',
+		};
+	}
 
-  connectedCallback() {
-    this.attachShadow({ mode: 'open' });
-    const rootPath = this.getRootPathAttr();
+	connectedCallback() {
+		this.attachShadow({ mode: 'open' });
+		const rootPath = this.getRootPathAttr();
 
-    const template = `
+		const template = `
       <header id="header">
         <h2>Mediserv</h2>
         <button id="burgerMenu" aria-label="Toggle menu">☰</button>
@@ -20,7 +20,7 @@ class Header extends HTMLElement {
           <a class="nav-link" href="${rootPath}index.html">Home</a>
           <a class="nav-link" href="${rootPath}pages/about.html">About</a>
           <div class="dropdown">
-            <a class="nav-link">Services</a>
+            <a class="nav-link dropdown-item">Services</a>
             <div class="dropdown-content">
               <a href="${rootPath}pages/services/diagnostics" class="nav-link">Diagnositics</a>
               <a href="${rootPath}pages/services/healthcare" class="nav-link">Healthcare</a>
@@ -32,48 +32,83 @@ class Header extends HTMLElement {
       </header>
     `;
 
-    this.shadowRoot.innerHTML = `${styles}${template}`;
-    this.navbarEl = this.shadowRoot.getElementById('navbar');
-    this.burgerMenuEl = this.shadowRoot.getElementById('burgerMenu');
+		this.shadowRoot.innerHTML = `${styles}${template}`;
+		this.navbarEl = this.shadowRoot.getElementById('navbar');
+		this.burgerMenuEl = this.shadowRoot.getElementById('burgerMenu');
 
-    this.injectBurgerAnimation();
-  }
+		this.injectBurgerAnimation();
+		this.injectDropdownAnimation();
 
-  getRootPathAttr() {
-    let rootPath = this.getAttribute('root-path');
+		this.shadowRoot.onclick = function (event) {
+			if (!event.target.matches('.dropdown') || !event.target.matches('.dropdown-item')) {
+				const dropdowns = document.getElementsByClassName('dropdown-content');
 
-    if (!rootPath) {
-      throw new Error('header-component requires `rootPath` attribute');
-    }
+				for (let i = 0; i < dropdowns.length; i++) {
+					const openDropdown = dropdowns[i];
 
-    return rootPath.toLowerCase();
-  }
+					if (openDropdown.style.display !== 'none') {
+						openDropdown.style.display = 'none';
+					}
+				}
+			}
+		};
+	}
 
-  injectBurgerAnimation() {
-    this.shadowRoot.getElementById('burgerMenu').addEventListener('click', () => {
-      this.navbarEl.classList.contains(this.animationTags.NAVBAR_SHOW) 
-        ? this.collapseBurger()
-        : this.expandBurger();
-    });
-  }
+	getRootPathAttr() {
+		let rootPath = this.getAttribute('root-path');
 
-  // #f18954
+		if (!rootPath) {
+			throw new Error('header-component requires `rootPath` attribute');
+		}
 
-  collapseBurger() {
-    this.navbarEl.classList.remove(this.animationTags.NAVBAR_SHOW);
-    this.burgerMenuEl.classList.remove(this.animationTags.BURGER_EXPAND);
-    this.burgerMenuEl.innerText = '☰';
-  }
+		return rootPath.toLowerCase();
+	}
 
-  expandBurger() {
-    this.burgerMenuEl.style.visibility = 'hidden';
-    this.navbarEl.classList.add(this.animationTags.NAVBAR_SHOW);
-    this.burgerMenuEl.classList.add(this.animationTags.BURGER_EXPAND);
+	injectBurgerAnimation() {
+		this.shadowRoot.getElementById('burgerMenu').addEventListener('click', () => {
+			this.navbarEl.classList.contains(this.animationTags.NAVBAR_SHOW)
+				? this.collapseBurger()
+				: this.expandBurger();
+		});
+	}
 
-    setTimeout(() => {
-      this.burgerMenuEl.style.visibility = 'visible';
-      this.burgerMenuEl.innerText = 'X'
-    }, 100);
+	injectDropdownAnimation() {
+		const dropdown = this.shadowRoot.querySelector('.dropdown');
+
+    dropdown.onclick = () => {
+      const dropdownContent = this.shadowRoot.querySelector('.dropdown .dropdown-content');
+
+			if (this.#isDesktop()) {
+				return;
+			}
+
+			dropdownContent.classList.toggle('hidden');
+    };
+	}
+
+	collapseBurger() {
+		this.navbarEl.classList.remove(this.animationTags.NAVBAR_SHOW);
+		this.burgerMenuEl.classList.remove(this.animationTags.BURGER_EXPAND);
+		this.burgerMenuEl.innerText = '☰';
+	}
+
+	expandBurger() {
+		this.navbarEl.style.display = 'flex';
+		this.burgerMenuEl.style.visibility = 'hidden';
+		this.burgerMenuEl.classList.add(this.animationTags.BURGER_EXPAND);
+		this.navbarEl.classList.add(this.animationTags.NAVBAR_SHOW);
+
+    const dropdownContent = this.shadowRoot.querySelector('.dropdown .dropdown-content');
+    dropdownContent.classList.add('hidden');
+
+		setTimeout(() => {
+			this.burgerMenuEl.style.visibility = 'visible';
+			this.burgerMenuEl.innerText = 'X';
+		}, 100);
+	}
+
+  #isDesktop() {
+    return window.innerWidth > 857;
   }
 }
 
@@ -120,37 +155,39 @@ const styles = `
       display: inline-block;
     }
 
-    .dropdown:hover > .nav-link {
-      color: #f18954;
-    }
+    @media screen and (min-width: 858px) {  
+      .dropdown:hover > .nav-link {
+        color: #f18954;
+      }
+  
+      .dropdown-content {
+        width: 160px;
+  
+        display: none;
+  
+        position: absolute;
+        top: 160%;
+        left: 15%;
+        z-index: 1;
+  
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
+      }
+  
+      .dropdown-content a {
+        display: block;
+        color: black;
+        text-decoration: none;
+        padding: 12px 16px;
+      }
+  
+      .dropdown-content a:hover {
+        color: white;
+        background-color: #f18954;
+      }
 
-    .dropdown-content {
-      width: 160px;
-
-      display: none;
-
-      position: absolute;
-      top: 160%;
-      left: 15%;
-      z-index: 1;
-
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
-    }
-
-    .dropdown-content a {
-      display: block;
-      color: black;
-      text-decoration: none;
-      padding: 12px 16px;
-    }
-
-    .dropdown-content a:hover {
-      color: white;
-      background-color: #f18954;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     }
 
     @media screen and (max-width: 857px) {
@@ -172,6 +209,7 @@ const styles = `
         width: 0px;
 
         display: flex;
+        align-items: flex-start;
         gap: 1rem;
         flex-direction: column;
 
@@ -192,14 +230,33 @@ const styles = `
         width: 220px;
       }
 
-      #navbar > a:first-child {
-        margin-top: 2rem;
+      #navbar .nav-link {
+        width: 100%;
+        color: white;
+        margin: 0;
+        font-weight: 500;
       }
 
-      #navbar > a {
-        color: white;
-        padding: 16px 20px;
-        font-weight: 500;
+      .dropdown, .dropdown-item {
+        display: block;
+        width: 100%;
+      }
+
+      .dropdown-content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        margin-top: 16px;
+        margin-left: 24px;
+      }
+
+      .dropdown-content a {
+        padding: 4px 8px;
+      }
+
+      .dropdown-content.hidden {
+        display: none;
       }
     }
   </style>
@@ -208,7 +265,7 @@ const styles = `
 customElements.define('header-component', Header);
 
 function normalizePath(path) {
-  let result;
+	let result;
 
-  return result.toLowerCase()
+	return result.toLowerCase();
 }
