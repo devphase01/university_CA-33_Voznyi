@@ -61,6 +61,13 @@ input[type="reset"] {
 
 /* General classes */
 
+h2 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: 1.3px;
+}
+
 .container {
   display: block;
   padding-left: 120px;
