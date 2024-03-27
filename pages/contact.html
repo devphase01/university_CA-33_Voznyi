@@ -4,10 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/contact.css" />
   <script src="../components/header/index.js" type="text/javascript" defer></script>
   <title>Mediserv | Contact</title>
 </head>
 <body>
   <header-component class="container" root-path="../"></header-component>
+
+  <div class="contact-container">
+    <h3 class="h3">Contact Form</h3>
+    <form class="contact-form">
+      <div class="contact-field-container">
+        <label for="contact-name">Name</label>
+        <input type="text" id="contact-name" placeholder="John" required />
+      </div>
+      <div class="contact-field-container">
+        <label for="contact-email">Email</label>
+        <input type="text" id="contact-name" placeholder="John" required />
+      </div>
+      <div class="contact-field-container">
+        <label for="contact-subject">Subject</label>
+        <input type="text" id="contact-name" placeholder="John" required />
+      </div>
+      <div class="contact-field-container">
+        <label for="contact-description">Description</label>
+        <textarea 
+          type="text" 
+          id="contact-name" 
+          placeholder="Meaningful text" 
+          rows="4"
+          required
+        ></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </body>
 </html>
