@@ -58,7 +58,12 @@ input[type="reset"] {
 :root {
   --color-orange: #f18954;
   --color-orange-light: #f2a67f;
+
   --color-white: #fff;
+  --color-floar-white: #fef8f2;
+
+  --color-black: #000;
+  --color-black-60: rgba(0, 0, 0, 0.6);
 }
 
 /* General classes */
