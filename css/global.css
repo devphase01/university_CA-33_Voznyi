@@ -63,6 +63,7 @@ input[type="reset"] {
   --color-floar-white: #fef8f2;
 
   --color-black: #000;
+  --color-black-20: rgba(0, 0, 0, 0.2);
   --color-black-60: rgba(0, 0, 0, 0.6);
 }
 
